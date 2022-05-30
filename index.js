@@ -4,19 +4,18 @@ const port = 8080;
 
 // configuring ejs in Express - HTML renderer
 app.set('view engine', 'ejs');
+// Configuring express to use static files
+app.use(expresss.static('public'));
 
-app.get('/:name/:lang', (req, res) => {
-    const name = req.params.name;
-    const lang = req.params.lang;
-    res.render('index', {
-        name,
-        lang,
-        company: 'Fast INC.',
-        subs: 8001
-    });
+app.get('/', (req, res) => {
+    res.render('index');
 });
 
-app.listen(port, (err) => {
+app.get('/ask', (req, res) => {
+    res.render('ask');
+})
+
+app.listen(port, err => {
     if (err) {
         console.log("an error has occurred: ", error);
     } else {
