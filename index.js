@@ -1,11 +1,15 @@
 const expresss = require('express');
 const app = expresss();
 const port = 8080;
+const bodyParser = require('body-parser');
 
 // configuring ejs in Express - HTML renderer
 app.set('view engine', 'ejs');
 // configuring express to use static files
 app.use(expresss.static('public'));
+// configuring bodyparser to access data from form
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -17,7 +21,9 @@ app.get('/ask', (req, res) => {
 
 // we are using post since this route exists to receive the question form data
 app.post('/savequestion', (req, res) => {
-    res.send('Form received!');
+    const title = req.body.title;
+    const description = req.body.description;
+    res.send(`Form received, question title: ${title}, question description: ${description}`);
 });
 
 app.listen(port, err => {
