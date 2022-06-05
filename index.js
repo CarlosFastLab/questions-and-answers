@@ -15,6 +15,11 @@ app.get('/ask', (req, res) => {
     res.render('ask');
 });
 
+// we are using post since this route exists to receive the question form data
+app.post('/savequestion', (req, res) => {
+    res.send('Form received!');
+});
+
 app.listen(port, err => {
     if (err) {
         console.log("an error has occurred: ", err);
