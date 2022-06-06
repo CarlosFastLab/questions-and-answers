@@ -9,7 +9,7 @@ const connection = require('./database/database');
 connection
     .authenticate()
     .then(() => {
-        console.log('Successfully connected to database!');
+        console.log('\x1b[42m\x1b[30m', `Succesfully connected to database! \x1b[0m`);
     })
     .catch(err => {
         console.log('An error has occured:', err)
