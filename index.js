@@ -1,7 +1,19 @@
+require('dotenv').config()
 const expresss = require('express');
 const app = expresss();
 const port = 8080;
 const bodyParser = require('body-parser');
+const connection = require('./database/database');
+
+// database connection
+connection
+    .authenticate()
+    .then(() => {
+        console.log('Successfully connected to database!');
+    })
+    .catch(err => {
+        console.log('An error has occured:', err)
+    })
 
 // configuring ejs in Express - HTML renderer
 app.set('view engine', 'ejs');
@@ -11,6 +23,7 @@ app.use(expresss.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// routes
 app.get('/', (req, res) => {
     res.render('index');
 });
