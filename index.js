@@ -4,6 +4,7 @@ const app = expresss();
 const port = 8080;
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
+const questionModel = require('./database/Question');
 
 // database connection
 connection
