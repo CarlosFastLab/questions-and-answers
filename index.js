@@ -58,6 +58,27 @@ app.post('/savequestion', (req, res) => {
     })
 });
 
+app.get('/question/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id)
+    // Finding by ID inside model/table
+    Question.findOne({
+        where: {
+            id
+        }
+    })
+    .then((question) => {
+        // question != undefined means a question with the required id has been found in DB
+        if(question != undefined) {
+            res.render('question', {
+                question
+            });
+        } else {
+            res.redirect("/");
+        }
+    });
+});
+
 app.listen(port, err => {
     if (err) {
         console.log("an error has occurred: ", err);
