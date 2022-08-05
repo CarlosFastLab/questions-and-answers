@@ -61,7 +61,6 @@ app.post('/savequestion', (req, res) => {
 
 app.get('/question/:id', (req, res) => {
     const id = req.params.id;
-    console.log(id)
     // Finding by ID inside model/table
     Question.findOne({
         where: {
@@ -77,6 +76,18 @@ app.get('/question/:id', (req, res) => {
         } else {
             res.redirect("/");
         }
+    });
+});
+
+app.post('/answer', (req, res) => {
+    const body = req.body.body;
+    const questionId = req.body.question;
+    Answer.create({
+        body,
+        questionId
+    })
+    .then(() => {
+        res.redirect(`/question/${questionId}`);
     });
 });
 

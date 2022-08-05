@@ -8,9 +8,11 @@
         <p><%= question.description %></p>
         <hr>
 
-        <form>
+        <form method="POST" action="/answer">
             <h3>Reply</h3>
             <textarea placeholder="Give them your best answer" class="form-control" name="body"></textarea>
+            <!-- Hack: sending questionId via a hidden input -->
+            <input type="hidden" name="question" value="<%= question.id %>">
             <br>
             <button type="submit" class="btn btn-primary">Answer</button>
         </form>
