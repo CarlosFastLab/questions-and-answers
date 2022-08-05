@@ -17,3 +17,5 @@ Question.sync({ force: false })
 .then(() => {
     console.log('\x1b[42m\x1b[30m', 'Question table created in DB!', '\x1b[0m')
 });
+
+module.exports = Question;
