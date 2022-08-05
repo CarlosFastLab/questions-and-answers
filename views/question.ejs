@@ -7,6 +7,27 @@
         <h1><%= question.title %></h1>
         <p><%= question.description %></p>
         <hr>
+
+        <form method="POST" action="/answer">
+            <h3>Reply</h3>
+            <textarea placeholder="Give them your best answer" class="form-control" name="body"></textarea>
+            <!-- Hack: sending questionId via a hidden input -->
+            <input type="hidden" name="question" value="<%= question.id %>">
+            <br>
+            <button type="submit" class="btn btn-primary">Answer</button>
+        </form>
+        <hr>
+
+        <h3>Replies</h3>
+        <hr>
+        <% answers.forEach(answer => { %>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <p><%= answer.body %></p>
+                </div>
+            </div>
+        <% }) %>
     </div>
 
 </body>

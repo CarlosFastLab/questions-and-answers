@@ -5,6 +5,7 @@ const port = 8080;
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
 const Question = require('./database/Question');
+const Answer = require('./database/Answer');
 
 // database connection
 connection
@@ -60,7 +61,6 @@ app.post('/savequestion', (req, res) => {
 
 app.get('/question/:id', (req, res) => {
     const id = req.params.id;
-    console.log(id)
     // Finding by ID inside model/table
     Question.findOne({
         where: {
@@ -70,12 +70,38 @@ app.get('/question/:id', (req, res) => {
     .then((question) => {
         // question != undefined means a question with the required id has been found in DB
         if(question != undefined) {
-            res.render('question', {
-                question
-            });
+            // Grabbing answers where the questionId value is equal to the actual question.id
+            Answer.findAll({
+                where: {
+                    questionId: question.id,
+                },
+                order: [
+                    ['id', 'DESC']
+                ]
+            })
+            // We pass the answers found in the res.render
+            // Ugly code...
+            .then((answers) => {
+                res.render('question', {
+                    question,
+                    answers
+                });
+            })
         } else {
             res.redirect("/");
         }
+    });
+});
+
+app.post('/answer', (req, res) => {
+    const body = req.body.body;
+    const questionId = req.body.question;
+    Answer.create({
+        body,
+        questionId
+    })
+    .then(() => {
+        res.redirect(`/question/${questionId}`);
     });
 });
 
