@@ -26,7 +26,15 @@ app.use(bodyParser.json());
 
 // routes
 app.get('/', (req, res) => {
-    res.render('index');
+    // Equivalent to SELECT * FROM question
+    // raw: true parameter only brings back the data persisted, with no additional(unnecessary) data
+    Question.findAll({ raw: true })
+    .then((questions) => {
+        // Passing the returned questions to our "frontend" with EJS
+        res.render('index', {
+            questions
+        });
+    });
 });
 
 app.get('/ask', (req, res) => {
