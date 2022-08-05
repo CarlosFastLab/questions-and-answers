@@ -5,6 +5,7 @@ const port = 8080;
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
 const Question = require('./database/Question');
+const Answer = require('./database/Answer');
 
 // database connection
 connection
