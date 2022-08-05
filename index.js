@@ -28,7 +28,10 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     // Equivalent to SELECT * FROM question
     // raw: true parameter only brings back the data persisted, with no additional(unnecessary) data
-    Question.findAll({ raw: true })
+    // order: ordering data, in this case based on id column value
+    Question.findAll({ raw: true, order: [
+        ['id', 'DESC']
+    ]})
     .then((questions) => {
         // Passing the returned questions to our "frontend" with EJS
         res.render('index', {
