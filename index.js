@@ -70,7 +70,9 @@ app.get('/question/:id', (req, res) => {
     .then((question) => {
         // question != undefined means a question with the required id has been found in DB
         if(question != undefined) {
-            res.render('question');
+            res.render('question', {
+                question
+            });
         } else {
             res.redirect("/");
         }
