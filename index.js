@@ -4,7 +4,7 @@ const app = expresss();
 const port = 8080;
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
-const questionModel = require('./database/Question');
+const Question = require('./database/Question');
 
 // database connection
 connection
@@ -37,7 +37,14 @@ app.get('/ask', (req, res) => {
 app.post('/savequestion', (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
-    res.send(`Form received, question title: ${title}, question description: ${description}`);
+    // Equivalent to INSERT INTO question ...Question
+    Question.create({
+        title,
+        description
+    })
+    .then(() => {
+        res.redirect("/");
+    })
 });
 
 app.listen(port, err => {
